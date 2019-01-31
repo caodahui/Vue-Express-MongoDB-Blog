@@ -4,19 +4,27 @@ const router = express.Router();
 // 引入数据模型模块
 const User = require("../models/user");
 
+//包装数据
+const normalPack = (err, data) => {
+  return {
+    datas: data,
+    resMsg: err
+  }
+}
+
 // 查询所有英雄信息路由
 router.get("/hero", (req, res) => {
   User.find("testTable", {}, '', (err, data) => {
-    res.json(data);
+    res.json(normalPack(err, data));
   })
-    /*.sort({update_at: -1})
-    .then(heros => {
-      res.json(heros);
-    })
-    .catch(err => {
-      console.log(2);
-      res.json(err);
-    });*/
+  /*.sort({update_at: -1})
+  .then(heros => {
+    res.json(heros);
+  })
+  .catch(err => {
+    console.log(2);
+    res.json(err);
+  });*/
 })
 
 // 通过ObjectId查询单个英雄信息路由
